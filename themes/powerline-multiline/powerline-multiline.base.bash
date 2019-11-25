@@ -9,7 +9,7 @@ function __powerline_right_segment {
   local params=( $1 )
   IFS="${OLD_IFS}"
   local separator_char="${POWERLINE_RIGHT_SEPARATOR}"
-  local padding=2
+  local padding="${POWERLINE_PADDING}"
   local separator_color=""
 
   if [[ "${SEGMENTS_AT_RIGHT}" -eq 0 ]]; then
@@ -46,11 +46,13 @@ function __powerline_prompt_command {
 
   ## right prompt ##
   if [[ -n "${POWERLINE_RIGHT_PROMPT}" ]]; then
-    LEFT_PROMPT+="${move_cursor_rightmost}"
+    # LEFT_PROMPT+="${move_cursor_rightmost}"
     for segment in $POWERLINE_RIGHT_PROMPT; do
       local info="$(__powerline_${segment}_prompt)"
       [[ -n "${info}" ]] && __powerline_right_segment "${info}"
     done
+    RIGHT_PAD=$(printf "%.s " $(seq 1 $RIGHT_PROMPT_LENGTH))
+    LEFT_PROMPT+="${RIGHT_PAD}${move_cursor_rightmost}"
     LEFT_PROMPT+="\033[${RIGHT_PROMPT_LENGTH}D"
   fi
 

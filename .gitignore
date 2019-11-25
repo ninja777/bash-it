@@ -16,3 +16,5 @@ bats
 *.sublime-workspace
 *.sublime-project
 enabled/*
+/enabled
+tmp/
